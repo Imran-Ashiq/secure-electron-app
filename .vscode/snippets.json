@@ -1,0 +1,18 @@
+[
+    {
+        "id": "e133f34004e90c90fe3d2b1904d76a7e",
+        "description": "ewe",
+        "body": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>Secure Electron app</title>\n</head>\n  <body>\n    <div id=\"root\"></div>\n  </body>\n</html>",
+        "source": "c:\\Users\\dell\\Downloads\\Projects backup src files\\secure-electron-app\\src\\index.html",
+        "range": {
+            "start": {
+                "line": 0,
+                "character": 0
+            },
+            "end": {
+                "line": 9,
+                "character": 7
+            }
+        }
+    }
+]

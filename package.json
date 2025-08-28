@@ -1,0 +1,60 @@
+{
+  "name": "secure-electron-app",
+  "productName": "secure-electron-app",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".webpack/main",
+"scripts": {
+  "start": "electron-forge start",
+  "package": "electron-forge package",
+  "make": "electron-forge make",
+  "publish": "electron-forge publish",
+  "lint": "eslint --ext .ts,.tsx .",
+  "build:test": "electron-forge make",
+  "test": "playwright test"
+},
+  "keywords": [],
+  "author": {
+    "name": "Muhammad Imran",
+    "email": "imranbwpk@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.8.3",
+    "@electron-forge/maker-deb": "^7.8.3",
+    "@electron-forge/maker-rpm": "^7.8.3",
+    "@electron-forge/maker-squirrel": "^7.8.3",
+    "@electron-forge/maker-zip": "^7.8.3",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.3",
+    "@electron-forge/plugin-fuses": "^7.8.3",
+    "@electron-forge/plugin-webpack": "^7.8.3",
+    "@electron/fuses": "^1.8.0",
+    "@playwright/test": "^1.55.0",
+    "@types/react": "^19.1.11",
+    "@types/react-dom": "^19.1.7",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+    "css-loader": "^6.11.0",
+    "electron": "37.3.1",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.32.0",
+    "fork-ts-checker-webpack-plugin": "^7.3.0",
+    "fs-extra": "^11.3.1",
+    "node-loader": "^2.1.0",
+    "style-loader": "^3.3.4",
+    "tree-kill": "^1.2.2",
+    "ts-loader": "^9.5.4",
+    "ts-node": "^10.9.2",
+    "typescript": "~4.5.4",
+    "wait-port": "^1.1.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1",
+    "keytar": "^7.9.0",
+    "openid-client": "^6.6.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
+}
