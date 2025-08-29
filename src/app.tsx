@@ -1,80 +1,90 @@
-import React, { useState, useEffect } from 'react';
 
-// Define the possible states for our application UI
+import React, { useState, useEffect } from 'react';
+import './index.css';
+
+// Application authentication states
 type AppState = 'logged-out' | 'loading' | 'logged-in';
 
+// User profile structure returned from Auth0
 interface UserProfile {
-  name: string;
-  email: string;
-  nickname?: string;
-  picture?: string;
-  sub?: string;
+  name: string;      // Full name of the user
+  email: string;     // Email address
+  nickname?: string; // Optional display name
+  picture?: string;  // Optional profile image URL
+  sub?: string;      // Optional unique identifier
 }
 
-export const App = () => {
+
+// Main application component
+export const App: React.FC = () => {
+  // State: tracks authentication status
   const [authState, setAuthState] = useState<AppState>('logged-out');
+  // State: stores user profile after successful login
   const [user, setUser] = useState<UserProfile | null>(null);
 
-  // This effect runs only once to set up the IPC listener
+  // Set up IPC listeners for authentication events from the main process
   useEffect(() => {
-    // Listener for successful login
-    window.electronAPI.onAuthSuccess((profile) => {
+    // On successful login, update user profile and state
+    window.electronAPI.onAuthSuccess((profile: UserProfile) => {
+      // For debugging: log profile image URL
+      console.log('Profile picture URL:', profile.picture);
       setUser(profile);
       setAuthState('logged-in');
     });
-
-    // Listener for logout completion
+    // On logout, clear user profile and reset state
     window.electronAPI.onLogout(() => {
       setUser(null);
       setAuthState('logged-out');
     });
   }, []);
 
-  // Handler for logout button
+  // Handler: triggers logout via main process
   const handleLogoutClick = () => {
     window.electronAPI.logout();
   };
 
-  // This is our new handler function
+  // Handler: triggers login flow via main process
   const handleLoginClick = () => {
-    setAuthState('loading'); // First, set the UI state to loading
-    window.electronAPI.startLogin(); // Then, call the original, unmodified API
+    setAuthState('loading'); // Show loading UI
+    window.electronAPI.startLogin(); // Start OIDC login
   };
 
-  const renderContent = () => {
-    switch (authState) {
-      case 'loading':
-        return <h2>Authenticating...</h2>;
-      
-      case 'logged-in':
-        return (
-          <div>
-            <h2>Welcome, {user?.nickname || user?.name}</h2>
-            <p>Email: {user?.email}</p>
-            {user?.picture && <img src={user.picture} alt="User profile" style={{ borderRadius: '50%', width: '100px', height: '100px' }} />}
-            <br />
-            <button onClick={handleLogoutClick}>Logout</button>
-          </div>
-        );
-        
-      case 'logged-out':
-      default:
-        return (
-          <div>
-            <h1>Secure Electron App</h1>
-            <p>Please log in to continue.</p>
-            {/* Call our new handler function on click */}
-            <button onClick={handleLoginClick}>
-              Login with Enterprise Account
-            </button>
-          </div>
-        );
-    }
-  };
-
+  // Render UI based on authentication state
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      {renderContent()}
+    <div>
+      {/* Show loading indicator during authentication */}
+      {authState === 'loading' && (
+        <div className="app-card">
+          <h2>Authenticating...</h2>
+        </div>
+      )}
+      {/* Show user info and logout button when logged in */}
+      {authState === 'logged-in' && (
+        <div className="app-card">
+          <h2>Welcome, {user?.nickname || user?.name}</h2>
+          <p>Email: {user?.email}</p>
+          {/* Display profile image if available */}
+          {user?.picture && (
+            <img
+              src={user.picture}
+              alt="User profile"
+              style={{ borderRadius: '50%', width: '100px', height: '100px' }}
+            />
+          )}
+          <br />
+          <button onClick={handleLogoutClick}>Logout</button>
+        </div>
+      )}
+      {/* Show login prompt when logged out */}
+      {authState === 'logged-out' && (
+        <div className="app-card">
+          <h1>Secure Electron App</h1>
+          <p>Please log in to continue.</p>
+          <button onClick={handleLoginClick}>
+            Login with Enterprise Account
+          </button>
+        </div>
+      )}
     </div>
   );
 };

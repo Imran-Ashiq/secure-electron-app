@@ -4,15 +4,15 @@
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
-"scripts": {
-  "start": "electron-forge start",
-  "package": "electron-forge package",
-  "make": "electron-forge make",
-  "publish": "electron-forge publish",
-  "lint": "eslint --ext .ts,.tsx .",
-  "build:test": "electron-forge make",
-  "test": "playwright test"
-},
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts,.tsx .",
+    "build:test": "electron-forge make",
+    "test": "playwright test"
+  },
   "keywords": [],
   "author": {
     "name": "Muhammad Imran",
@@ -41,6 +41,7 @@
     "eslint-plugin-import": "^2.32.0",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
     "fs-extra": "^11.3.1",
+    "mini-css-extract-plugin": "^2.9.4",
     "node-loader": "^2.1.0",
     "style-loader": "^3.3.4",
     "tree-kill": "^1.2.2",
@@ -51,6 +52,7 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
+    "dotenv": "^17.2.1",
     "electron-squirrel-startup": "^1.0.1",
     "keytar": "^7.9.0",
     "openid-client": "^6.6.4",

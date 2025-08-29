@@ -83,7 +83,8 @@ typings/
 .dynamodb/
 
 # Webpack
-.webpack/
+.env
+.env.test
 
 # Vite
 .vite/

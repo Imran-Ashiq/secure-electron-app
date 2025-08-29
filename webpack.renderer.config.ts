@@ -1,12 +1,15 @@
 import type { Configuration } from 'webpack';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { rules } from './webpack.rules';
 import { plugins } from './webpack.plugins';
 
 rules.push({
   test: /\.css$/,
-  use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+  use: [MiniCssExtractPlugin.loader, 'css-loader'],
 });
+
+plugins.push(new MiniCssExtractPlugin());
 
 export const rendererConfig: Configuration = {
   module: {
